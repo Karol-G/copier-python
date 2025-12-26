@@ -1,0 +1,96 @@
+_min_copier_version: "9.0.0"
+
+_answers_file: .copier-answers.yml
+
+_templates_suffix: ""  # render all files without requiring .tmpl/.jinja suffix
+
+_exclude:
+  - .git
+  - .venv
+  - "__pycache__"
+  - hooks
+  - copier.yml
+
+_tasks:
+  - command: git init
+
+  # Set default branch safely (works on older Git too)
+  - command: git checkout -b {{ default_branch }}
+    when: "{{ default_branch != 'master' }}"
+
+  - command: git config user.name "{{ author_name }}"
+    when: "{{ author_name != '' }}"
+
+  - command: git config user.email "{{ author_email }}"
+    when: "{{ author_email != '' }}"
+
+  - command: git add -A
+  - command: git commit -m "Initial commit"
+
+project_name:
+  type: str
+  help: "Project display name (e.g. Awesome Python Project)"
+  default: "Awesome Python Project"
+
+project_slug:
+  type: str
+  help: "Repository/package slug, kebab-case (suggested: {{ project_name|lower|replace(' ', '-')|replace('_', '-') }})"
+  default: "{{ project_name|lower|replace(' ', '-')|replace('_', '-') }}"
+
+package_name:
+  type: str
+  help: "Python package folder name at repo root (suggested: {{ project_slug.replace('-', '_') }})"
+  default: "{{ project_slug.replace('-', '_') }}"
+
+project_description:
+  type: str
+  help: "Short description for README and PyPI (e.g. A modern Python package powered by Copier.)"
+  default: "A modern Python package powered by Copier."
+
+author_name:
+  type: str
+  help: "Your full name"
+  default: "Karol Gotkowski"
+
+author_email:
+  type: str
+  help: "Your email address"
+  default: "karol.gotkowski@dkfz.de"
+
+github_username:
+  type: str
+  help: "GitHub username or org"
+  default: "Karol-G"
+
+default_branch:
+  type: str
+  help: "Default branch for badges and workflows"
+  default: "main"
+
+python_version:
+  type: str
+  help: "Minimum supported Python version"
+  default: "3.9"
+
+license:
+  type: str
+  help: "License identifier (MIT supported by this template)"
+  default: "MIT"
+  choices:
+    - MIT
+
+license_year:
+  type: str
+  help: "Copyright year (auto-set)"
+  default: "{{ '%Y' | strftime }}"
+  when: false
+
+git_remote:
+  type: str
+  help: "Git remote URL (used for docs/badges)"
+  default: "git@github.com:{{ github_username }}/{{ project_slug }}.git"
+
+repository_url:
+  type: str
+  help: "Public repository URL"
+  default: "https://github.com/{{ github_username }}/{{ project_slug }}"

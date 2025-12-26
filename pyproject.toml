@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68", "setuptools_scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "{{ project_slug }}"
+description = "{{ project_description }}"
+readme = "README.md"
+requires-python = ">= {{ python_version }}"
+license = { text = "{{ license }}" }
+authors = [{ name = "{{ author_name }}", email = "{{ author_email }}" }]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: {{ python_version }}",
+  "Operating System :: OS Independent",
+]
+keywords = ["copier", "template", "python"]
+dependencies = []
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = [
+  "build>=1.0",
+  "pytest>=7.0",
+  "twine>=4.0",
+  "setuptools_scm[toml]>=8.0",
+]
+
+[project.urls]
+Homepage = "{{ repository_url }}"
+Source = "{{ repository_url }}"
+Issues = "{{ repository_url }}/issues"
+
+[tool.setuptools]
+package-dir = { "" = "." }
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["{{ package_name }}*"]
+
+[tool.setuptools_scm]
+fallback_version = "0.0.0"
+local_scheme = "node-and-date"
