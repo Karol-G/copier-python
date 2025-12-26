@@ -20,7 +20,9 @@ copier copy https://github.com/Karol-G/copier-python your-project --trust
 - Use `setuptools_scm` for versions from Git tags
 - Initialize git and make the initial commit
 
-4) Add remote, tag and push to publish:
+4) Configure a trusted publisher for the project repository on PyPi
+
+5) Add remote, tag and push to publish:
 ```bash
 git remote add origin git@github.com:ACCOUNT/PROJECT.git
 git push -u origin main
@@ -28,11 +30,13 @@ git tag v0.0.1
 git push origin v0.0.1
 ```
 
+
+
 ## Template notes
 
 - Adjust the defaults in `copier.yml` as needed.
 - The project README is rendered from `README.project.md` into `README.md` during generation; the template README stays in this repo only.
-- PyPI publishing expects `PYPI_API_TOKEN` in GitHub repository secrets.
+- PyPI publishing expects a trusted publisher configuration. No twine or pypi api key secrets need to be added to this repository.
 
 ## Links
 
