@@ -10,8 +10,14 @@ _exclude:
   - "__pycache__"
   - hooks
   - copier.yml
+  - README.md
 
 _tasks:
+  - command:
+      - mv
+      - README.project.md
+      - README.md
+      
   - command: git init
 
   # Set default branch safely (works on older Git too)
