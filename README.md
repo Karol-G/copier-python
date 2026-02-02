@@ -11,7 +11,7 @@ pipx install copier  # or: pip install copier
 
 2) Generate a project from this template:
 ```bash
-copier copy https://github.com/Karol-G/copier-python your-project --trust
+copier copy --trust https://github.com/Karol-G/copier-python your-project
 ```
 
 3) Answer the prompts. Copier will:
